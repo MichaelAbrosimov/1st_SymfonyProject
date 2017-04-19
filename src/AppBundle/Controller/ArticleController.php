@@ -3,9 +3,11 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
-class ArticleController
+
+class ArticleController extends Controller
 {
 
     /**
@@ -13,7 +15,8 @@ class ArticleController
      */
     public function createGreed()
     {
-        return new Response("<htm><body>Здесь будет таблица</body></html>");
+        return $this->render ( 'article/articleGreed.html.twig' , array (
+            'name' => "Article"));
     }
 
 }
