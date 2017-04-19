@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -22,7 +24,6 @@ class Article
      */
     private $id;
 
-
     /**
      * @var string
      *
@@ -42,69 +43,87 @@ class Article
      *
      * @ORM\Column(name="created_at", type="datetime")
      */
-    private $created_at;
+    private $createdAt;
 
     /**
+     * Get id
+     *
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
+     * Get name
+     *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
+     * Set name
+     *
      * @param string $name
+     *
+     * @return Article
      */
-    public function setName($name)
+    public function setName(string $name): Article
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
+     * Get description
+     *
      * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
     /**
+     * Set description
+     *
      * @param string $description
+     *
+     * @return Article
      */
-    public function setDescription($description)
+    public function setDescription(string $description): Article
     {
         $this->description = $description;
+
+        return $this;
     }
 
     /**
+     * Get created at
+     *
      * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getCreatedAt(): \DateTime
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
     /**
-     * @param \DateTime $created_at
+     *Set Created at
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Article
      */
-    public function setCreatedAt($created_at)
+    public function setCreatedAt(\DateTime $createdAt): Article
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
+
+        return $this;
     }
 }
