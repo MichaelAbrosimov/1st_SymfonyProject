@@ -1,11 +1,32 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h2>Таблица</h2>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h2>Таблица: {{ name }}</h2>
-</body>
-</html>
+<Table border="1"  >
+    <!-- Заголовок таблицы -->
+    <caption style=" font-size:xx-large"> Article </caption>
+
+    <!-- Шапка таблицы -->
+    <thead>
+        <tr style="font-weight: bold" >
+            <td>Имя</td>
+            <td>Описание</td>
+            <td>Дата создания</td>
+            <td>Изменить</td>
+        </tr>
+    </thead>
+    <!-- Наполнение таблицы данными -->
+
+    <tbody>
+    {% for entity in article %}
+        <tr>
+            <td> {{ entity.name }} </td>
+            <td> {{ entity.description }} </td>
+            <td> {{ entity.createdAt|date('Y-m-d H:i:s') }} </td>
+            <td></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</Table>
+
+{% endblock %}
