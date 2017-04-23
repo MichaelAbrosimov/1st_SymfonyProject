@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-
 /**
  * Class ArticleController
  * @package AppBundle\Controller
@@ -24,9 +23,8 @@ class ArticleController extends Controller
         $article = $this->getDoctrine()->getRepository(Article::class);
         $article = $article->findAll();
 
-
-        return $this->render ( 'article/index.html.twig' , array (
-            'article' => $article));
+        return $this->render ( 'article/index.html.twig' ,[
+            'article' => $article]);
     }
 
     /**
@@ -40,7 +38,7 @@ class ArticleController extends Controller
         $form = $this->createForm(ArticleFormType::class, $article);
         $form->handleRequest($request);
 
-        if ($form->isValid() && ($form->isSubmitted())) {
+        if ($form->isValid() ) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush();
@@ -63,11 +61,13 @@ class ArticleController extends Controller
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $article = $em->getRepository(Article::class)->find($id);
+
+        $articleRepozitory = $em->getRepository(Article::class);
+        $article = $articleRepozitory->find($id);
         $form = $this->createForm(ArticleFormType::class, $article);
         $form->handleRequest($request);
 
-        if ($form->isValid() && ($form->isSubmitted())) {
+        if ($form->isValid())  {
             $em->persist($article);
             $em->flush();
 
