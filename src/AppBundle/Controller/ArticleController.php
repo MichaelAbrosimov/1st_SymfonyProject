@@ -2,25 +2,80 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
+use AppBundle\Form\ArticleFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
-
+/**
+ * Class ArticleController
+ * @package AppBundle\Controller
+ */
 class ArticleController extends Controller
 {
 
     /**
-     * @Route("/article/controller", name="article_index")
+     * @Route("/article", name="article_index")
      */
-    public function createGreed()
+    public function indexAction()
     {
         $article = $this->getDoctrine()->getRepository(Article::class);
         $article = $article->findAll();
-        var_dump($article);
-        return $this->render ( 'article/articleGreed.html.twig' , array (
+
+
+        return $this->render ( 'article/index.html.twig' , array (
             'article' => $article));
-        return;
+    }
+
+    /**
+     * @return Response
+     *
+     * @Route("/article/create", name="article_create")
+     */
+    public function createAction(Request $request)
+    {
+        $article = new Article();
+        $form = $this->createForm(ArticleFormType::class, $article);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $em->flush();
+
+            return $this->redirectToRoute('article_index');
+        }
+
+        return $this->render('article/create.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     *
+     * @Route ("/article/update", name="article_update")
+     */
+    public function updateAction(Request $request, $id)
+    {
+
+    }
+
+    /**
+     * @param $id
+     *
+     * @Route ("/article/delete/{id}", name="article_delete")
+     */
+    public function deleteAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository(Article::class)->find($id);
+        $em->remove($article);
+        $em->flush();
+
+        return $this->redirectToRoute('article_index');
     }
 }

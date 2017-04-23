@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Class Article
@@ -45,6 +44,11 @@ class Article
      */
     private $createdAt;
 
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
+
     /**
      * Get id
      *
@@ -62,7 +66,7 @@ class Article
      */
     public function getName(): string
     {
-        return $this->name;
+        return (string) $this->name;
     }
 
     /**
@@ -86,7 +90,7 @@ class Article
      */
     public function getDescription(): string
     {
-        return $this->description;
+        return (string) $this->description;
     }
 
     /**
@@ -100,7 +104,7 @@ class Article
     {
         $this->description = $description;
 
-        return $this;
+        return  $this;
     }
 
     /**

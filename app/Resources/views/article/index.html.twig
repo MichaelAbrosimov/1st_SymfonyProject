@@ -1,8 +1,7 @@
 {% extends 'base.html.twig' %}
+{% block title %}Article{% endblock %}
 {% block body %}
-    <h2>Таблица</h2>
-
-<Table border="1"  >
+<Table border="1">
     <!-- Заголовок таблицы -->
     <caption style=" font-size:xx-large"> Article </caption>
 
@@ -12,7 +11,7 @@
             <td>Имя</td>
             <td>Описание</td>
             <td>Дата создания</td>
-            <td>Изменить</td>
+    <!--        <td>Изменить</td>  -->
         </tr>
     </thead>
     <!-- Наполнение таблицы данными -->
@@ -20,13 +19,17 @@
     <tbody>
     {% for entity in article %}
         <tr>
-            <td> {{ entity.name }} </td>
+            <td> <a href="{{ path ('article_update' , {'id' : entity.id })}}"> {{ entity.name }} </a></td>
             <td> {{ entity.description }} </td>
-            <td> {{ entity.createdAt|date('Y-m-d H:i:s') }} </td>
-            <td></td>
+            <td> {{ entity.createdAt|date('Y-m-d H:m') }} </td>
+            <td ><a href="{{ path ('article_delete' , {'id' : entity.id })}}"> {{ entity.id }}X</a> </td>
         </tr>
     {% endfor %}
+
     </tbody>
 </Table>
+    <a href="{{ path('article_create') }}">
+        <input type="button" value="Создать">
+    </a>
 
 {% endblock %}
