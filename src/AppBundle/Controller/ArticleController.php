@@ -40,7 +40,7 @@ class ArticleController extends Controller
         $form = $this->createForm(ArticleFormType::class, $article);
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->isValid() && ($form->isSubmitted())) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush();
@@ -57,11 +57,26 @@ class ArticleController extends Controller
      * @param Request $request
      * @param $id
      *
-     * @Route ("/article/update", name="article_update")
+     * @Route ("/article/update/{id}", name="article_update")
+     * @return Response
      */
     public function updateAction(Request $request, $id)
     {
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository(Article::class)->find($id);
+        $form = $this->createForm(ArticleFormType::class, $article);
+        $form->handleRequest($request);
 
+        if ($form->isValid() && ($form->isSubmitted())) {
+            $em->persist($article);
+            $em->flush();
+
+            return $this->redirectToRoute('article_index');
+        }
+
+        return $this->render('article/create.html.twig', [
+            'form' => $form->createView()
+        ]);
     }
 
     /**
