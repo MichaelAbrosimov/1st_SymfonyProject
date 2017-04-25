@@ -104,7 +104,7 @@ class Article
     {
         $this->description = $description;
 
-        return  $this;
+        return $this;
     }
 
     /**
