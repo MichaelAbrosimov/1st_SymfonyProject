@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -18,7 +20,6 @@ class ClassSymfony
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     *
      */
     private $id;
 
@@ -37,8 +38,7 @@ class ClassSymfony
     private $url;
 
     /**
-     * @ORM\ManyToOne(targetEntity="NamespaceSymfony", inversedBy="interfaces")
-     *
+     * @ORM\ManyToOne(targetEntity="NamespaceSymfony", inversedBy="classes")
      */
     private $namespace;
 

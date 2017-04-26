@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -41,6 +43,17 @@ class NamespaceSymfony
      */
     private $interfaces;
 
+    /**
+     * @ORM\OneToMany (targetEntity="ClassSymfony", mappedBy="namespace")
+     */
+    private $classes;
+
+
+    public function __construct()
+    {
+        $interfaces = new ArrayCollection();
+        $classes = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -95,13 +108,4 @@ class NamespaceSymfony
     {
         return $this->interfaces;
     }
-
-    /**
-     * @param mixed $interfaces
-     */
-    public function setInterfaces(InterfaceSymfony $interfaces)
-    {
-        $this->interfaces = $interfaces;
-    }
-
 }
