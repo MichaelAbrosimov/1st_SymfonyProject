@@ -55,25 +55,27 @@ class ParserCommand extends ContainerAwareCommand
             $crawler = new Crawler($content);
 
             // Classes of NameSpaces
-            $crawler_C = $crawler->filter('div.col-md-6 > a > abbr');
+            $crawler_C = $crawler->filter('div.col-md-6 > a ');
             $output->write(' Classes: ');
 
             foreach ($crawler_C as $domElement_C) {
                 $className = $domElement_C->textContent;
+                $classUrl = $domElement_C->getAttribute('href');
                 $output->write($className."\t");
 
-                $this->addClass($className,'', $nameSpace);
+                $this->addClass($className, $classUrl, $nameSpace);
             }
 
             // Interfaces of NameSpaces
-            $crawler_I = $crawler->filter('div.col-md-6 > em > a > abbr');
+            $crawler_I = $crawler->filter('div.col-md-6 > em > a ');
             $output->write("\n" . ' Interfaces: ');
 
             foreach ($crawler_I as $domElement_I) {
                 $interfaceName = $domElement_I->textContent;
+                $interfaceUrl = $domElement_I->getAttribute('href');
                 $output->write( $interfaceName."\t");
 
-                $this->addInterface($interfaceName,'', $nameSpace);
+                $this->addInterface($interfaceName, $interfaceUrl, $nameSpace);
             }
             $output->writeln("\n--------------------------------------------------------------------------");
         }
