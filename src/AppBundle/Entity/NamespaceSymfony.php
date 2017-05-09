@@ -51,8 +51,8 @@ class NamespaceSymfony
 
     public function __construct()
     {
-        $interfaces = new ArrayCollection();
-        $classes = new ArrayCollection();
+        $this->interfaces = new ArrayCollection();
+        $this->classes = new ArrayCollection();
     }
 
     /**
