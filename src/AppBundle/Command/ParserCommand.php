@@ -21,7 +21,11 @@ class ParserCommand extends ContainerAwareCommand
     /**
      * @var string
      */
-    private $sourseUrl = "http://api.symfony.com/3.2/";
+    private $sourseUrl = "http://api.symfony.com/3.2";
+    /**
+     * @var int
+     */
+    public $count=0;
 
     protected function configure()
     {
@@ -38,47 +42,17 @@ class ParserCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $content = file_get_contents($this->sourseUrl);
-        $crawler_NS = new Crawler($content);
-        $crawler_NS = $crawler_NS->filter('div.namespace-container > ul > li > a');
+        $output->writeln(array(
+            '<info>    Парсим    </>',
+            $this->sourseUrl,
+            '<info>==========================</>'
+        ));
 
-        foreach ($crawler_NS as $domElement_NS) {
+        $this->recursParsing($this->sourseUrl . "/Symfony.html");
 
-            $nameNameSpace = $domElement_NS->textContent;
-            $urlNameSpace = $this->sourseUrl . $domElement_NS->getAttribute('href');
-            $output->writeln($nameNameSpace);
-            $output->writeln(' URL: ' . $urlNameSpace);
-
-            $nameSpace = $this->addNameSpace($nameNameSpace, $urlNameSpace);
-
-            $content = file_get_contents($urlNameSpace);
-            $crawler = new Crawler($content);
-
-            // Classes of NameSpaces
-            $crawler_C = $crawler->filter('div.col-md-6 > a ');
-            $output->write(' Classes: ');
-
-            foreach ($crawler_C as $domElement_C) {
-                $className = $domElement_C->textContent;
-                $classUrl = $domElement_C->getAttribute('href');
-                $output->write($className."\t");
-
-                $this->addClass($className, $classUrl, $nameSpace);
-            }
-
-            // Interfaces of NameSpaces
-            $crawler_I = $crawler->filter('div.col-md-6 > em > a ');
-            $output->write("\n" . ' Interfaces: ');
-
-            foreach ($crawler_I as $domElement_I) {
-                $interfaceName = $domElement_I->textContent;
-                $interfaceUrl = $domElement_I->getAttribute('href');
-                $output->write( $interfaceName."\t");
-
-                $this->addInterface($interfaceName, $interfaceUrl, $nameSpace);
-            }
-            $output->writeln("\n--------------------------------------------------------------------------");
-        }
+        // white text on a green background
+        $output->writeln('произведено '.$this->count.' записей');
+        return;
     }
 
     /**
@@ -127,5 +101,53 @@ class ParserCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine')->getManager();
         $em->persist($interface);
         $em->flush();
+    }
+
+    /**
+     * @param string $targetUrl
+     */
+    private function recursParsing(string $targetUrl)
+    {
+        var_dump($targetUrl);
+        $content = file_get_contents($targetUrl);
+        $crawler = new Crawler($content);
+        // current NameSpace
+        $crawler_CNS = $crawler->filter('h1');
+        foreach ($crawler_CNS as $domElement_CNS) {
+            $nameNameSpace = $domElement_CNS->textContent;
+        }
+        $nameSpace = $this->addNameSpace($nameNameSpace, $targetUrl);
+        $this->count++;
+
+        // Classes of NameSpaces
+        $crawler_C = $crawler->filter('div.col-md-6 > a ');
+        foreach ($crawler_C as $domElement_C) {
+            $className = $domElement_C->textContent;
+            $classUrl = $this->sourseUrl.'/'.$domElement_C->getAttribute('href');
+            $classUrl = str_replace('../','',$classUrl);
+            $this->addClass($className, $classUrl, $nameSpace);
+            $this->count++;
+        }
+
+        // Interfaces of NameSpaces
+        $crawler_I = $crawler->filter('div.col-md-6 > em > a ');
+        foreach ($crawler_I as $domElement_I) {
+            $interfaceName = $domElement_I->textContent;
+            $interfaceUrl = $this->sourseUrl.'/'.$domElement_I->getAttribute('href');
+            $interfaceUrl = str_replace('../','',$interfaceUrl);
+            $this->addInterface($interfaceName, $interfaceUrl, $nameSpace);
+            $this->count++;
+        }
+
+        // NameSpaces of NameSpaces (child)
+        $crawler_NS = $crawler->filter('div.namespace-list > a');
+        foreach ($crawler_NS as $domElement_NS) {
+
+            $nameSpaceUrl = $this->sourseUrl.'/'.$domElement_NS->getAttribute('href');
+            $nameSpaceUrl = str_replace('../','',$nameSpaceUrl);
+            $this->count++;
+            $this->recursParsing($nameSpaceUrl);
+        }
+        return;
     }
 }
