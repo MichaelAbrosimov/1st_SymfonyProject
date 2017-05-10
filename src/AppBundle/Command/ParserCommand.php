@@ -25,7 +25,7 @@ class ParserCommand extends ContainerAwareCommand
     /**
      * @var int
      */
-    public $count=0;
+    public $count = 0;
 
     protected function configure()
     {
@@ -124,7 +124,7 @@ class ParserCommand extends ContainerAwareCommand
         foreach ($crawler_C as $domElement_C) {
             $className = $domElement_C->textContent;
             $classUrl = $this->sourseUrl.'/'.$domElement_C->getAttribute('href');
-            $classUrl = str_replace('../','',$classUrl);
+            $classUrl = str_replace('../', '', $classUrl);
             $this->addClass($className, $classUrl, $nameSpace);
             $this->count++;
         }
@@ -134,7 +134,7 @@ class ParserCommand extends ContainerAwareCommand
         foreach ($crawler_I as $domElement_I) {
             $interfaceName = $domElement_I->textContent;
             $interfaceUrl = $this->sourseUrl.'/'.$domElement_I->getAttribute('href');
-            $interfaceUrl = str_replace('../','',$interfaceUrl);
+            $interfaceUrl = str_replace('../', '' ,$interfaceUrl);
             $this->addInterface($interfaceName, $interfaceUrl, $nameSpace);
             $this->count++;
         }
@@ -144,7 +144,7 @@ class ParserCommand extends ContainerAwareCommand
         foreach ($crawler_NS as $domElement_NS) {
 
             $nameSpaceUrl = $this->sourseUrl.'/'.$domElement_NS->getAttribute('href');
-            $nameSpaceUrl = str_replace('../','',$nameSpaceUrl);
+            $nameSpaceUrl = str_replace('../', '', $nameSpaceUrl);
             $this->count++;
             $this->recursParsing($nameSpaceUrl);
         }
