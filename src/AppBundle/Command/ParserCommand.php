@@ -27,6 +27,11 @@ class ParserCommand extends ContainerAwareCommand
      */
     public $count = 0;
 
+    /**
+     * @var
+     */
+    private $output;
+
     protected function configure()
     {
         $this
@@ -42,6 +47,7 @@ class ParserCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $this->output = $output;
         $output->writeln(array(
             '<info>    Парсим    </>',
             $this->sourseUrl,
@@ -108,7 +114,8 @@ class ParserCommand extends ContainerAwareCommand
      */
     private function recursParsing(string $targetUrl)
     {
-        var_dump($targetUrl);
+        $this->output->writeln($targetUrl);
+
         $content = file_get_contents($targetUrl);
         $crawler = new Crawler($content);
         // current NameSpace
