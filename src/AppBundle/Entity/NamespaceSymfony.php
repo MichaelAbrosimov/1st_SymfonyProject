@@ -57,6 +57,7 @@ class NamespaceSymfony
 
     /**
      * @ORM\ManyToOne (targetEntity="NamespaceSymfony", inversedBy="childNamespace")
+     * @ORM\JoinColumn(name="parent_namespace_id", referencedColumnName="id")
      */
     private $parentNamespace;
 
@@ -159,8 +160,10 @@ class NamespaceSymfony
     /**
      * @param mixed $parentNamespace
      */
-    public function setParentNamespace(NamespaceSymfony $parentNamespace)
+    public function setParentNamespace(NamespaceSymfony $parentNamespace = null)
     {
         $this->parentNamespace = $parentNamespace;
+
+        return $this;
     }
 }

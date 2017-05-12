@@ -54,7 +54,7 @@ class ParserCommand extends ContainerAwareCommand
             '<info>==========================</>'
         ));
 
-        $this->recursParsing($this->sourseUrl . "/Symfony.html");
+        $this->recursParsing($this->sourseUrl . "/Symfony.html", 0);
 
         // white text on a green background
         $output->writeln('произведено '.$this->count.' записей');
@@ -66,11 +66,15 @@ class ParserCommand extends ContainerAwareCommand
      * @param string $url
      * @return NamespaceSymfony
      */
-    private function addNameSpace(string $name, string $url) : NamespaceSymfony
+    private function addNameSpace(string $name, string $url,int $level, NamespaceSymfony $parentNameSpace = null) : NamespaceSymfony
     {
         $nameSpace = new NamespaceSymfony();
         $nameSpace->setName($name);
         $nameSpace->setUrl($url);
+        $nameSpace->setLevel($level);
+
+        $nameSpace->setParentNamespace($parentNameSpace);
+
         $em = $this->getContainer()->get('doctrine')->getManager();
         $em->persist($nameSpace);
         $em->flush();
@@ -112,7 +116,7 @@ class ParserCommand extends ContainerAwareCommand
     /**
      * @param string $targetUrl
      */
-    private function recursParsing(string $targetUrl)
+    private function recursParsing(string $targetUrl, int $level, NamespaceSymfony $parentNameSpace = null)
     {
         $this->output->writeln($targetUrl);
 
@@ -123,7 +127,7 @@ class ParserCommand extends ContainerAwareCommand
         foreach ($crawler_CNS as $domElement_CNS) {
             $nameNameSpace = $domElement_CNS->textContent;
         }
-        $nameSpace = $this->addNameSpace($nameNameSpace, $targetUrl);
+        $nameSpace = $this->addNameSpace($nameNameSpace, $targetUrl, $level, $parentNameSpace);
         $this->count++;
 
         // Classes of NameSpaces
@@ -153,7 +157,7 @@ class ParserCommand extends ContainerAwareCommand
             $nameSpaceUrl = $this->sourseUrl.'/'.$domElement_NS->getAttribute('href');
             $nameSpaceUrl = str_replace('../', '', $nameSpaceUrl);
             $this->count++;
-            $this->recursParsing($nameSpaceUrl);
+            $this->recursParsing($nameSpaceUrl, $level+1, $nameSpace);
         }
         return;
     }
