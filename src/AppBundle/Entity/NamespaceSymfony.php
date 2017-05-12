@@ -49,10 +49,30 @@ class NamespaceSymfony
     private $classes;
 
 
+    /**
+     * @ORM\OneToMany (targetEntity="NamespaceSymfony", mappedBy="parentNamespace")
+     */
+    private $childNamespace;
+
+
+    /**
+     * @ORM\ManyToOne (targetEntity="NamespaceSymfony", inversedBy="childNamespace")
+     */
+    private $parentNamespace;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="level", type="integer")
+     */
+    private $level;
+
+
     public function __construct()
     {
         $this->interfaces = new ArrayCollection();
         $this->classes = new ArrayCollection();
+        $this->childNamespace =new ArrayCollection();
     }
 
     /**
@@ -107,5 +127,40 @@ class NamespaceSymfony
     public function getInterfaces(): ArrayCollection
     {
         return $this->interfaces;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLevel(): int
+    {
+        return $this->level;
+    }
+
+    /**
+     * @param int $level
+     * @return $this|NamespaceSymfony
+     */
+    public function setLevel(int $level): NamespaceSymfony
+    {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    /**
+     * @return $this|NamespaceSymfony
+     */
+    public function getParentNamespace(): NamespaceSymfony
+    {
+        return $this->parentNamespace;
+    }
+
+    /**
+     * @param mixed $parentNamespace
+     */
+    public function setParentNamespace(NamespaceSymfony $parentNamespace)
+    {
+        $this->parentNamespace = $parentNamespace;
     }
 }
