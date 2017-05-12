@@ -23,7 +23,7 @@ class ArticleController extends Controller
         $article = $this->getDoctrine()->getRepository(Article::class);
         $article = $article->findAll();
 
-        return $this->render ( 'article/index.html.twig' ,[
+        return $this->render('article/index.html.twig', [
             'article' => $article]);
     }
 
@@ -38,7 +38,7 @@ class ArticleController extends Controller
         $form = $this->createForm(ArticleFormType::class, $article);
         $form->handleRequest($request);
 
-        if ($form->isValid() ) {
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush();
@@ -67,7 +67,7 @@ class ArticleController extends Controller
         $form = $this->createForm(ArticleFormType::class, $article);
         $form->handleRequest($request);
 
-        if ($form->isValid())  {
+        if ($form->isValid()) {
             $em->persist($article);
             $em->flush();
 

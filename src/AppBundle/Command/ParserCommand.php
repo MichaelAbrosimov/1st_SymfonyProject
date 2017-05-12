@@ -66,7 +66,7 @@ class ParserCommand extends ContainerAwareCommand
      * @param string $url
      * @return NamespaceSymfony
      */
-    private function addNameSpace(string $name, string $url,int $level, NamespaceSymfony $parentNameSpace = null) : NamespaceSymfony
+    private function addNameSpace(string $name, string $url, int $level, NamespaceSymfony $parentNameSpace = null) : NamespaceSymfony
     {
         $nameSpace = new NamespaceSymfony();
         $nameSpace->setName($name);
@@ -145,7 +145,7 @@ class ParserCommand extends ContainerAwareCommand
         foreach ($crawler_I as $domElement_I) {
             $interfaceName = $domElement_I->textContent;
             $interfaceUrl = $this->sourseUrl.'/'.$domElement_I->getAttribute('href');
-            $interfaceUrl = str_replace('../', '' ,$interfaceUrl);
+            $interfaceUrl = str_replace('../', '', $interfaceUrl);
             $this->addInterface($interfaceName, $interfaceUrl, $nameSpace);
             $this->count++;
         }
@@ -153,7 +153,6 @@ class ParserCommand extends ContainerAwareCommand
         // NameSpaces of NameSpaces (child)
         $crawler_NS = $crawler->filter('div.namespace-list > a');
         foreach ($crawler_NS as $domElement_NS) {
-
             $nameSpaceUrl = $this->sourseUrl.'/'.$domElement_NS->getAttribute('href');
             $nameSpaceUrl = str_replace('../', '', $nameSpaceUrl);
             $this->count++;
