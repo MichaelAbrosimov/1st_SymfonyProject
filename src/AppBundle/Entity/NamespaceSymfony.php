@@ -19,6 +19,7 @@ class NamespaceSymfony
     /**
      * @var int
      *
+     * @Gedmo\Tree(type="nested")
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -57,18 +58,38 @@ class NamespaceSymfony
 
 
     /**
+     * @Gedmo\TreeParent
      * @ORM\ManyToOne (targetEntity="NamespaceSymfony", inversedBy="childNamespace")
-     * @ORM\JoinColumn(name="parent_namespace_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="parent_namespace_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $parentNamespace;
+
+
+    /**
+     * @Gedmo\TreeLeft
+     * @ORM\Column(type=integer)
+     */
+    private $left;
+
+    /**
+     * @Gedmo\TreeRight
+     * @ORM\Column(type=integer)
+     */
+    private $right;
+
+    /**
+     * @Gedmo\TreeRoot
+     * @ORM\Column(type=integer, nullable=true)
+     */
+    private $root;
 
     /**
      * @var int
      *
+     * @Gedmo\TreeLevel
      * @ORM\Column(name="level", type="integer")
      */
     private $level;
-
 
     public function __construct()
     {
@@ -160,11 +181,60 @@ class NamespaceSymfony
 
     /**
      * @param mixed $parentNamespace
+     * @return $this
      */
     public function setParentNamespace(NamespaceSymfony $parentNamespace = null)
     {
         $this->parentNamespace = $parentNamespace;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLeft()
+    {
+        return $this->left;
+    }
+
+    /**
+     * @param mixed $left
+     */
+    public function setLeft($left)
+    {
+        $this->left = $left;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRight()
+    {
+        return $this->right;
+    }
+
+    /**
+     * @param mixed $right
+     */
+    public function setRight($right)
+    {
+        $this->right = $right;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRoot()
+    {
+        return $this->root;
+    }
+
+    /**
+     * @param mixed $root
+     */
+    public function setRoot($root)
+    {
+        $this->root = $root;
     }
 }
