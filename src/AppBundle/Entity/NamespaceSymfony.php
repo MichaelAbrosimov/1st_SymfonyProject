@@ -10,7 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Class NamespaceSymfony
- *
+ * @Gedmo\Tree(type="nested")
  * @package AppBundle\Entity
  * @ORM\Entity()
  */
@@ -19,7 +19,6 @@ class NamespaceSymfony
     /**
      * @var int
      *
-     * @Gedmo\Tree(type="nested")
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -67,19 +66,19 @@ class NamespaceSymfony
 
     /**
      * @Gedmo\TreeLeft
-     * @ORM\Column(type=integer)
+     * @ORM\Column(type="integer")
      */
     private $left;
 
     /**
      * @Gedmo\TreeRight
-     * @ORM\Column(type=integer)
+     * @ORM\Column(type="integer")
      */
     private $right;
 
     /**
      * @Gedmo\TreeRoot
-     * @ORM\Column(type=integer, nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $root;
 
