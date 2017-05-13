@@ -66,14 +66,17 @@ class ParserCommand extends ContainerAwareCommand
      * @param string $url
      * @return NamespaceSymfony
      */
-    private function addNameSpace(string $name, string $url, int $level, NamespaceSymfony $parentNameSpace = null) : NamespaceSymfony
+    private function addNameSpace(string $name, string $url, int $level, NamespaceSymfony $parentNameSpace = null, int $root = null, int $left = null, int $rifht = null) : NamespaceSymfony
     {
         $nameSpace = new NamespaceSymfony();
         $nameSpace->setName($name);
         $nameSpace->setUrl($url);
         $nameSpace->setLevel($level);
-
         $nameSpace->setParentNamespace($parentNameSpace);
+        $nameSpace->setRoot($root);
+        $nameSpace->setLeft(1);
+        $nameSpace->setRight(1);
+
 
         $em = $this->getContainer()->get('doctrine')->getManager();
         $em->persist($nameSpace);

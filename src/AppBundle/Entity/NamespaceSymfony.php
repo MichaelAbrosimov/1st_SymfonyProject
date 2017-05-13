@@ -7,6 +7,8 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Tree\Traits\NestedSetEntity;
+
 
 /**
  * Class NamespaceSymfony
@@ -16,6 +18,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class NamespaceSymfony
 {
+    use NestedSetEntity ;
+
     /**
      * @var int
      *
@@ -63,32 +67,6 @@ class NamespaceSymfony
      */
     private $parentNamespace;
 
-
-    /**
-     * @Gedmo\TreeLeft
-     * @ORM\Column(type="integer")
-     */
-    private $left;
-
-    /**
-     * @Gedmo\TreeRight
-     * @ORM\Column(type="integer")
-     */
-    private $right;
-
-    /**
-     * @Gedmo\TreeRoot
-     * @ORM\Column(type="integer")
-     */
-    private $root;
-
-    /**
-     * @var int
-     *
-     * @Gedmo\TreeLevel
-     * @ORM\Column(name="level", type="integer")
-     */
-    private $level;
 
     public function __construct()
     {
