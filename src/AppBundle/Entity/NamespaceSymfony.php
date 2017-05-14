@@ -9,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Tree\Traits\NestedSetEntity;
 
-
 /**
  * Class NamespaceSymfony
  * @Gedmo\Tree(type="nested")
@@ -18,7 +17,7 @@ use Gedmo\Tree\Traits\NestedSetEntity;
  */
 class NamespaceSymfony
 {
-    use NestedSetEntity ;
+    use NestedSetEntity;
 
     /**
      * @var int
@@ -53,7 +52,6 @@ class NamespaceSymfony
      */
     private $classes;
 
-
     /**
      * @ORM\OneToMany (targetEntity="NamespaceSymfony", mappedBy="parentNamespace")
      */
@@ -62,7 +60,7 @@ class NamespaceSymfony
 
     /**
      * @Gedmo\TreeParent
-     * @ORM\ManyToOne (targetEntity="NamespaceSymfony", inversedBy="childNamespace")
+     * @ORM\ManyToOne (targetEntity="NamespaceSymfony", inversedBy="childNamespace", cascade={"persist"})
      * @ORM\JoinColumn(name="parent_namespace_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $parentNamespace;
@@ -177,10 +175,13 @@ class NamespaceSymfony
 
     /**
      * @param mixed $left
+     * @return $this
      */
     public function setLeft($left)
     {
         $this->left = $left;
+
+        return $this;
     }
 
     /**
@@ -193,10 +194,13 @@ class NamespaceSymfony
 
     /**
      * @param mixed $right
+     * @return $this
      */
-    public function setRight($right)
+    public function setRight($right = null)
     {
         $this->right = $right;
+
+        return $this;
     }
 
     /**
@@ -209,9 +213,12 @@ class NamespaceSymfony
 
     /**
      * @param mixed $root
+     * @return $this
      */
     public function setRoot($root)
     {
         $this->root = $root;
+
+        return $this;
     }
 }
