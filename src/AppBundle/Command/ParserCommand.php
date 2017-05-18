@@ -117,10 +117,11 @@ class ParserCommand extends ContainerAwareCommand
                 ->setRoot($root)
                 ->setLeft(++$this->count)
                 ->setRight(0); //это костыль, здесь ничего присваивать не нужно, но без него ругается,
-            //Хотя не должен.
+                                //Хотя не должен.
 
             // NameSpaces of NameSpaces (child)
             $crawler_NS = $crawler->filter('div.namespace-list > a');
+            var_dump($crawler_NS);
             foreach ($crawler_NS as $domElement_NS) {
                 $nameSpaceUrl = $this->sourseUrl . '/' . $domElement_NS->getAttribute('href');
                 $nameSpaceUrl = str_replace('../', '', $nameSpaceUrl);
