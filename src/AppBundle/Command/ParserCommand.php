@@ -121,7 +121,7 @@ class ParserCommand extends ContainerAwareCommand
 
             // NameSpaces of NameSpaces (child)
             $crawler_NS = $crawler->filter('div.namespace-list > a');
-            var_dump($crawler_NS);
+
             foreach ($crawler_NS as $domElement_NS) {
                 $nameSpaceUrl = $this->sourseUrl . '/' . $domElement_NS->getAttribute('href');
                 $nameSpaceUrl = str_replace('../', '', $nameSpaceUrl);
