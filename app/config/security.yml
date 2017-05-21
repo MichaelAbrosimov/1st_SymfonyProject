@@ -38,7 +38,7 @@ security:
             #form_login: ~
 
     access_control:
-            - { path: ^/article, roles: ROLE_ADMIN }
+            - { path: ^/temp, roles: ROLE_ADMIN }
     encoders:
         AppBundle\Entity\User:
             algorithm: bcrypt

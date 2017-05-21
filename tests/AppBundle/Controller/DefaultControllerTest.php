@@ -9,10 +9,16 @@ class DefaultControllerTest extends WebTestCase
     public function testIndex()
     {
         $client = static::createClient();
+        $client->request('GET', '/');
 
+        //Дефолтный контроллер должен редиректить на Article
+        $this->assertTrue(
+            $client->getResponse()->isRedirect('/article'));
+    }
+    /**
         $crawler = $client->request('GET', '/');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(302, $client->getResponse()->getStatusCode());
         $this->assertContains('Welcome to Symfony', $crawler->filter('#container h1')->text());
-    }
+    */
 }
