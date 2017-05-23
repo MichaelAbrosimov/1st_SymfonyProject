@@ -18,7 +18,7 @@ class ArticleTest extends TestCase
         $this->assertEquals($testName, $article->getName());
     }
 
-    public function tesDescription()
+    public function testDescription()
     {
         $testDescription = 'Test Description';
         $article = new Article();
@@ -26,7 +26,7 @@ class ArticleTest extends TestCase
         $this->assertEquals($testDescription, $article->getDescription());
     }
 
-    public function tesCreatedAt()
+    public function testCreatedAt()
     {
         $testCreatedAt = new \DateTime('2017-01-01 00:00:00');;
         $article = new Article();
