@@ -10,19 +10,27 @@ use Symfony\Component\Validator\Constraints\DateTime;
 
 class ArticleTest extends TestCase
 {
-    public function testSetGet()
+    public function testName()
     {
         $testName = 'Test Name';
-        $testDescription = 'Test Description';
-        $testCreatedAt = new \DateTime('2017-01-01 00:00:00');
-        $article=new Article();
-        $article->setName($testName)
-                ->setDescription($testDescription)
-                ->setCreatedAt($testCreatedAt);
-        //$manager->persist($article);
-
+        $article = new Article();
+        $article->setName($testName);
         $this->assertEquals($testName, $article->getName());
+    }
+
+    public function tesDescription()
+    {
+        $testDescription = 'Test Description';
+        $article = new Article();
+        $article->setDescription($testDescription);
         $this->assertEquals($testDescription, $article->getDescription());
+    }
+
+    public function tesCreatedAt()
+    {
+        $testCreatedAt = new \DateTime('2017-01-01 00:00:00');;
+        $article = new Article();
+        $article->setCreatedAt($testCreatedAt);
         $this->assertEquals($testCreatedAt, $article->getCreatedAt());
     }
 }
