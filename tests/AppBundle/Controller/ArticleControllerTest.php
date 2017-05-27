@@ -51,8 +51,8 @@ class ArticleControllerTest extends WebTestCase
     {
       //  self::runAppConsoleCommand('doctrine:database:drop --force');
       //  self::runAppConsoleCommand('doctrine:database:create');
-        self::runAppConsoleCommand('doctrine:schema:update --force --verbose=3');
-        self::runAppConsoleCommand('doctrine:fixtures:load -q --verbose=3');
+     //   self::runAppConsoleCommand('doctrine:schema:update --force --verbose=3');
+     //   self::runAppConsoleCommand('doctrine:fixtures:load -q --verbose=3');
     }
 
     /**
