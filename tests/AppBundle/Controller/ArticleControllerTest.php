@@ -8,10 +8,17 @@
 
 namespace Tests\AppBundle\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Console\Input\StringInput;
 
 class ArticleControllerTest extends WebTestCase
 {
+    /**
+     * @var
+     */
+    public static $application;
+
     /**
      * @param $command
      *
@@ -20,30 +27,40 @@ class ArticleControllerTest extends WebTestCase
     public static function runAppConsoleCommand($command)
     {
         $command = sprintf('%s --env=test', $command);
-
         return self::getApplication()->run(new StringInput($command));
     }
-
+    public static function setUpBeforeClass()
+    {
+        self::setUpMysql();
+    }
+    /**
+     * @return Application
+     */
+    public static function getApplication()
+    {
+        if (null === self::$application) {
+            self::$application = new Application(static::createClient()->getKernel());
+            self::$application->setAutoExit(false);
+        }
+        return self::$application;
+    }
     /**
      * @return void
      */
-    public static function setUpMysql(): void
+    public static function setUpMysql()
     {
-        $test='Test';
-        var_dump($test);
+        self::runAppConsoleCommand('doctrine:database:drop --force');
+        self::runAppConsoleCommand('doctrine:database:create');
+        self::runAppConsoleCommand('doctrine:schema:update --force');
         self::runAppConsoleCommand('doctrine:fixtures:load -q');
-        self::runAppConsoleCommand('doctrine:database:create -q');
-        self::runAppConsoleCommand('doctrine:schema:update --force -q');
-        var_dump($test);
-        exit();
     }
+
 
     /**
      * В таблице 2 записи: t1, t2
      */
     public function testIndexAction()
     {
-        // $this->setUpMysql();
         $client = static::createClient();
 
         $crawler = $client->request('GET', '/article');
