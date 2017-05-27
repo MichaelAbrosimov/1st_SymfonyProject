@@ -11,6 +11,7 @@ dependencies:
   override:
     - exit 0
   pre:
+    - sudo apt-get install php7.1-mysql
     - composer install --no-interaction --dev
 
 test:
