@@ -23,4 +23,4 @@ dependencies:
 
 test:
  override:
-    - vendor/bin/phpunit --no-configuration
+    - phpunit --no-configuration
