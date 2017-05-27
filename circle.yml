@@ -20,13 +20,7 @@ dependencies:
     - composer install --no-interaction --dev
     - bin/console doctrine:schema:update --force
     - bin/console doctrine:fixtures:load -q
-    - phpunit
 
 test:
-  override:
-    - php --version
-
-#
-#test:
-# override:
-#   - vendor/bin/phpunit
+ override:
+    - vendor/bin/phpunit --configuration testing-circle.xml --no-configuration
