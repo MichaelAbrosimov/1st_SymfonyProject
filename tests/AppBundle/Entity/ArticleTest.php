@@ -28,7 +28,7 @@ class ArticleTest extends TestCase
 
     public function testCreatedAt()
     {
-        $testCreatedAt = new \DateTime('2017-01-01 00:00:00');;
+        $testCreatedAt = new \DateTime('2017-01-01 00:00:00');
         $article = new Article();
         $article->setCreatedAt($testCreatedAt);
         $this->assertEquals($testCreatedAt, $article->getCreatedAt());
