@@ -6,6 +6,11 @@ machine:
 
   php:
     version: 7.1.0
+  environment:
+    APP_ENV: testing
+    DB_HOST: 127.0.0.1
+    DB_DATABASE: circle_test
+    DB_USERNAME: ubuntu
 
 dependencies:
   override:
