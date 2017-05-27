@@ -20,12 +20,13 @@ dependencies:
     - composer install --no-interaction --dev
     - bin/console doctrine:schema:update --force
     - bin/console doctrine:fixtures:load -q
+    - vendor/bin/phpunit
 
 test:
   override:
     - php --version
 
-
-test:
-  override:
-    - vendor/bin/phpunit
+#
+#test:
+# override:
+#   - vendor/bin/phpunit
