@@ -26,7 +26,7 @@ class ArticleControllerTest extends WebTestCase
      */
     public static function runAppConsoleCommand($command)
     {
-        $command = sprintf('%s --env=test', $command);
+       // $command = sprintf('%s --env=test', $command);
         return self::getApplication()->run(new StringInput($command));
     }
     public static function setUpBeforeClass()
@@ -49,8 +49,8 @@ class ArticleControllerTest extends WebTestCase
      */
     public static function setUpMysql()
     {
-        self::runAppConsoleCommand('doctrine:database:drop --force');
-        self::runAppConsoleCommand('doctrine:database:create');
+      //  self::runAppConsoleCommand('doctrine:database:drop --force');
+      //  self::runAppConsoleCommand('doctrine:database:create');
         self::runAppConsoleCommand('doctrine:schema:update --force');
         self::runAppConsoleCommand('doctrine:fixtures:load -q');
     }
