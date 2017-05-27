@@ -63,6 +63,7 @@ class ArticleControllerTest extends WebTestCase
         $client = static::createClient();
 
         $crawler = $client->request('GET', '/article');
+        var_dump($crawler->html());
 
         //Есть надпись "Article" в заголовке таблицы
         $this->assertContains('Article', $crawler->filter('body > table > caption')->text());
