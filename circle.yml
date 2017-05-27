@@ -18,6 +18,7 @@ dependencies:
   pre:
     - php -m
     - composer install --no-interaction --dev
+    - bin/console doctrine:schema:update --force
 
 test:
   override:
