@@ -1,0 +1,25 @@
+language: php
+
+php:
+  - 7.1
+
+services:
+  - mysql
+
+
+before_install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
+
+before_script:
+    #- psql -c 'create database travis_ci_test;' -U postgres
+  - COMPOSER_ROOT_VERSION=dev-master composer --prefer-source --dev install
+  - bin/console doctrine:schema:update --force
+  - bin/console doctrine:fixtures:load -q
+
+test:
+  adapter: mysql2
+  database: myapp_test
+  username: travis
+  encoding: utf8
+
+script: vendor/bin/phpunit
