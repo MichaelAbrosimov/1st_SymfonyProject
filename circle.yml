@@ -23,4 +23,4 @@ dependencies:
 
 test:
  override:
-    - vendor/bin/phpunit --configuration testing-circle.xml --no-configuration
+    - vendor/bin/phpunit --no-configuration
