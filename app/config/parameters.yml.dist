@@ -2,17 +2,11 @@
 # Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
 # http://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
 parameters:
-    test:
-      adapter: mysql2
-      database: myapp_test
-      username: travis
-      encoding: utf8
-
-      database_host:     127.0.0.1
-      database_port:     ~
-      database_name:     travis_ci_test
-      database_user:     travis
-      database_password: ~
+    database_host:     127.0.0.1
+    database_port:     ~
+    database_name:     travis_ci_test
+    database_user:     travis
+    database_password: ~
 
 
 
