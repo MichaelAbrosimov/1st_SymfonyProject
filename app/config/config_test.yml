@@ -15,9 +15,3 @@ web_profiler:
 swiftmailer:
     disable_delivery: true
 
-doctrine:
-    dbal:
-        host:     localhost
-        dbname:   testdb
-        user:     root
-        password: 6210340
