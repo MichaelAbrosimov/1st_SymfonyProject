@@ -5,7 +5,6 @@ declare(strict_types=1);
 
 namespace Tests\AppBundle\Util;
 
-
 use AppBundle\Entity\ClassSymfony;
 use AppBundle\Entity\NamespaceSymfony;
 use PHPUnit\Framework\TestCase;

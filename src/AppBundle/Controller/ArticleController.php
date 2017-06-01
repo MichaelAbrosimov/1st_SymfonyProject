@@ -67,7 +67,7 @@ class ArticleController extends Controller
         $form = $this->createForm(ArticleFormType::class, $article);
         $form->handleRequest($request);
 
-        if  ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($article);
             $em->flush();
 
@@ -84,6 +84,7 @@ class ArticleController extends Controller
      *
      * @Route ("/article/delete/{id}", name="article_delete")
      *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction($id)
     {

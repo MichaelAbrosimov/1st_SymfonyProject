@@ -21,7 +21,7 @@ class ParserCommand extends ContainerAwareCommand
     /**
      * @var string
      */
-    private $sourseUrl = "http://api.symfony.com/3.2";
+    private $sourseUrl = "http://api.symfony.com/3.3";
     /**
      * @var int
      */
@@ -38,7 +38,7 @@ class ParserCommand extends ContainerAwareCommand
             ->setName('parser')
             ->setDescription('List of Namespases')
             ->addArgument('argument', InputArgument::OPTIONAL, 'Argument description')
-            ->addOption('option', null, InputOption::VALUE_NONE, 'Option description');
+            ->addOption('test', null, InputOption::VALUE_NONE, 'Test Mode');
     }
 
     /**
@@ -49,15 +49,21 @@ class ParserCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->output = $output;
-        $output->writeln(array(
+        $route = "/Symfony.html";
+        if ($input->getOption('test')) {
+            $output->writeln('<fg=red> Test Mode </>');
+            $route = "/Symfony/Component/Asset.html";
+        }
+        $output->writeln([
             '<info>    Парсим    </info>',
             $this->sourseUrl,
             '<info>==========================</info>'
-        ));
+            ]);
 
-        $this->recursParsing($this->sourseUrl . "/Symfony.html", 0);
 
-        // white text on a green background
+        $this->recursParsing($this->sourseUrl . $route, 0);
+
+
         $output->writeln('произведено '.(($this->count)/2).' записей');
         return;
     }

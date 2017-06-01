@@ -103,7 +103,7 @@ class User implements UserInterface, \Serializable
      */
     public function getRoles()
     {
-        // TODO: Implement getRoles() method.
+        //  TODO: Implement getRoles() method.
 
         return array('ROLE_ADMIN');
     }

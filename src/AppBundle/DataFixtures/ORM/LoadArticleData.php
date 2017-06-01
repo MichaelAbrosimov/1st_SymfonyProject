@@ -34,6 +34,5 @@ class LoadArticleData extends AbstractFixture
         $manager->persist($article_1);
         $manager->persist($article_2);
         $manager->flush();
-
     }
 }
