@@ -17,9 +17,12 @@ class ParserCommandTest extends KernelTestCase
         $application->add(new ParserCommand());
         $command = $application->find('parser');
         $commandTester = new CommandTester($command);
-        $commandTester->execute([
+        $commandTester->execute(
+            [
             'command'  => $command->getName(),
-            '--test' => '--test']);
+            '--test' => '--test'
+            ]
+        );
 
         $output = $commandTester->getDisplay();
         $this->assertContains('произведено 4 записей', $output);
