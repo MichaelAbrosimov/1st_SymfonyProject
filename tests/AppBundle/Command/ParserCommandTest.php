@@ -22,5 +22,7 @@ class ParserCommandTest extends KernelTestCase
             '--test' => '--test']);
 
         $output = $commandTester->getDisplay();
+        $this->assertContains('произведено 4 записей', $output);
+        $this->assertEquals(4, substr_count($output, 'html'));
     }
 }

@@ -60,7 +60,12 @@ class ArticleControllerTest extends WebTestCase
      */
     public function testIndexAction()
     {
-        $client = static::createClient();
+        $client = static::createClient([],
+            [
+            'PHP_AUTH_USER' => 'trash',
+            'PHP_AUTH_PW'   => '0000',
+            ]
+        );
 
         $crawler = $client->request('GET', '/article');
 
