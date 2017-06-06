@@ -49,12 +49,11 @@ class Article
         $this->createdAt = new \DateTime();
     }
 
+
     /**
-     * Get id
-     *
-     * @return int
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

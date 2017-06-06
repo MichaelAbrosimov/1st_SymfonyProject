@@ -34,11 +34,10 @@ class ArticleTest extends TestCase
         $this->assertEquals($testCreatedAt, $article->getCreatedAt());
     }
 
-/**
+
     public function testId()
     {
         $article = new Article();
-        $this->assertEquals(NULL , $article->getId());
+        $this->assertEquals(null , $article->getId());
     }
- */
 }

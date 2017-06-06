@@ -73,10 +73,11 @@ class NamespaceSymfony
         $this->childNamespace =new ArrayCollection();
     }
 
+
     /**
-     * @return int
+     * @return int|null
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -125,6 +126,14 @@ class NamespaceSymfony
     public function getInterfaces(): ArrayCollection
     {
         return $this->interfaces;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getClasses(): ArrayCollection
+    {
+        return $this->classes;
     }
 
     /**

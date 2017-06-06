@@ -1,15 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Michael-mac
- * Date: 29.05.17
- * Time: 23:00
- */
 
 namespace Tests\AppBundle\Util;
 
+use AppBundle\Entity\ClassSymfony;
 use AppBundle\Entity\NamespaceSymfony;
 use PHPUnit\Framework\TestCase;
+use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+
 
 class NamespaceSymfonyTest extends TestCase
 {
@@ -68,5 +65,22 @@ class NamespaceSymfonyTest extends TestCase
         $namespace = new NamespaceSymfony();
         $namespace->setRoot($testRoot);
         $this->assertEquals($testRoot, $namespace->getRoot());
+    }
+
+    public function testId()
+    {
+        $namespace = new NamespaceSymfony();
+        $this->assertEquals(null , $namespace->getId());
+    }
+
+    public function testClasses()
+    {
+        $namespace = new NamespaceSymfony();
+        $class = new ClassSymfony();
+        $class->setNamespace($namespace);
+        var_dump($namespace);
+        var_dump($class);
+        $this->assertTrue(is_a(($namespace->getClasses()), 'ArrayCollection')) ;
+      //127.0.0.1  $this->assertClassHasAttribute( ('arraycollection',$namespace->getClasses());
     }
 }
